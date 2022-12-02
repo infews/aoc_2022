@@ -6,14 +6,22 @@ module Aoc2022
       end
 
       def straight_score
-        @games = @lines.collect { |line| StraightGame.new(line) }
-
-        @games.sum { |g| g.score }
+        score(StraightGame)
       end
 
       def strat_score
-        @games = @lines.collect { |line| StratGame.new(line) }
+        score(StratGame)
+      end
+
+      def score(game_klass)
+        @games = GameFactory.build(@lines, game_klass)
         @games.sum { |g| g.score }
+      end
+    end
+
+    class GameFactory
+      def self.build(lines, klass)
+        lines.collect { |line| klass.new(line) }
       end
     end
 
