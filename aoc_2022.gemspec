@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["dwfrank@gmail.com"]
 
   spec.summary =
-  spec.description = "AoC 2022"
+    spec.description = "AoC 2022"
   spec.homepage = "https://dwf.bigoencil.net"
   spec.required_ruby_version = ">= 3.1.0"
 

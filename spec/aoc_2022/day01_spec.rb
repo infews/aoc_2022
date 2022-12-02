@@ -1,10 +1,9 @@
-
 RSpec.describe Aoc2022::Day01::CalCounter do
   let(:subject) { Aoc2022::Day01::CalCounter.new(input) }
 
   context "solve for test data" do
     let(:input) {
-      %Q(1000
+      %(1000
 2000
 3000
 

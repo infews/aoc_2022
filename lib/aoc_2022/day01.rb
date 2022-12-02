@@ -5,14 +5,14 @@ module Aoc2022
 
       def initialize(input)
         @elves_load = input.split("\n\n")
-                     .collect { |s| s.split("\n") }
-                     .collect { |l| l.collect { |c| c.to_i } }
+          .collect { |s| s.split("\n") }
+          .collect { |l| l.collect { |c| c.to_i } }
       end
 
-      def top(count=1)
+      def top(count = 1)
         elves_load.map { |load| load.sum }
-                  .max(count)
-                  .sum
+          .max(count)
+          .sum
       end
     end
   end
