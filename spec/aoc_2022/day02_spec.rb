@@ -16,7 +16,7 @@ C Z
 
       describe "#straight_score" do
         it "matches" do
-          expect(subject.straight_score).to eq(15)
+          expect(subject.score(:straight)).to eq(15)
         end
       end
     end
@@ -26,7 +26,7 @@ C Z
 
       describe "#straight_score" do
         it "matches" do
-          expect(subject.straight_score).to eq(14375)
+          expect(subject.score(:straight)).to eq(14375)
         end
       end
     end
@@ -38,7 +38,7 @@ C Z
 
       describe "#straight_score" do
         it "matches" do
-          expect(subject.strat_score).to eq(12)
+          expect(subject.score(:strat)).to eq(12)
         end
       end
     end
@@ -48,7 +48,7 @@ C Z
 
       describe "#straight_score" do
         it "matches" do
-          expect(subject.strat_score).to eq(10274)
+          expect(subject.score(:strat)).to eq(10274)
         end
       end
     end
