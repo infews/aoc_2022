@@ -1,33 +1,16 @@
-# Aoc2022
+# DWF's Solutions for Advent of Code 2022
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/aoc_2022`. To experiment with that code, run `bin/console` for an interactive prompt.
+My Ruby solutions for [Advent of Code 2022](https://adventofcode.com)
 
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Install the gem and add to the application's Gemfile by executing:
-
-    $ bundle add aoc_2022
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install aoc_2022
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```sh
+> bundle            # because Ruby
+> bundle exec rake  # because TDD
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Note that I TDD these solutions and there will often be refactors in the history. I attempt to do lots of small checkins on green. The goal is to make the refactoring steps more useful to folks who watch that sort of thing.
 
-## Contributing
+I tend to use bundler to set up a base Ruby project with RSpec, hence the `aoc_2022.gemspec` file and the slightly cryptic `Gemfile`.
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/aoc_2022. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/aoc_2022/blob/main/CODE_OF_CONDUCT.md).
-
-## Code of Conduct
-
-Everyone interacting in the Aoc2022 project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/aoc_2022/blob/main/CODE_OF_CONDUCT.md).
