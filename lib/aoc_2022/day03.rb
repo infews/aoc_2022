@@ -5,7 +5,7 @@ module Aoc2022
         @sacks = input.map { |l| Rucksack.new(l.chars) }
       end
 
-      def sum
+      def sum_sack_priority
         @sacks.sum { |s| priority_of(s.shared) }
       end
 
