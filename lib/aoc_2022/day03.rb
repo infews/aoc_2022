@@ -2,7 +2,7 @@ module Aoc2022
   module Day03
     class Baggage
       def initialize(input)
-        @sacks = input.map { |l| Rucksack.from(l.chars) }
+        @sacks = input.map { |l| Rucksack.new(l.chars) }
       end
 
       def sum
@@ -20,17 +20,18 @@ module Aoc2022
     end
 
     class Rucksack
-      def self.from(line)
-        first, second = line.each_slice((line.size / 2.0).round).to_a
-        Rucksack.new(first, second)
-      end
-
       attr_reader :shared
 
-      def initialize(first, second)
+      def initialize(chars)
+        @items = chars
+        @shared = find_shared
+      end
+
+      def find_shared
+        first, second = @items.each_slice((@items.size / 2.0).round).to_a
         f = first.uniq
         s = second.uniq
-        @shared = (f - (f - s)).first
+        (f - (f - s)).first
       end
     end
   end
