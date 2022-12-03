@@ -1,4 +1,4 @@
-require "forwardable"
+require "set"
 
 module Aoc2022
   module Day03
@@ -45,15 +45,15 @@ module Aoc2022
       attr_reader :shared, :items
 
       def initialize(chars)
-        @items = chars
-        @shared = find_shared
+        @items = Set.new(chars)
+        @shared = find_shared(chars)
       end
 
-      def find_shared
-        first, second = @items.each_slice((@items.size / 2.0).round).to_a
-        f = first.uniq
-        s = second.uniq
-        (f - (f - s)).first
+      def find_shared(chars)
+        first, second = chars.each_slice((chars.size / 2.0).round).to_a
+        f = Set.new(first)
+        s = Set.new(second)
+        (f & s).to_a.first
       end
     end
   end
