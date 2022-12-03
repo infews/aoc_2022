@@ -14,20 +14,16 @@ C Z
     context "with test data" do
       let(:input) { test_data }
 
-      describe "#straight_score" do
-        it "matches" do
-          expect(subject.score(:straight)).to eq(15)
-        end
+      it "solves straight scoring" do
+        expect(subject.score(:straight)).to eq(15)
       end
     end
 
     context "with real data" do
       let(:input) { real_data }
 
-      describe "#straight_score" do
-        it "matches" do
-          expect(subject.score(:straight)).to eq(14375)
-        end
+      it "solves straight scoring" do
+        expect(subject.score(:straight)).to eq(14375)
       end
     end
   end
@@ -36,20 +32,16 @@ C Z
     context "with test data" do
       let(:input) { test_data }
 
-      describe "#straight_score" do
-        it "matches" do
-          expect(subject.score(:strat)).to eq(12)
-        end
+      it "solves strategy scoring" do
+        expect(subject.score(:strat)).to eq(12)
       end
     end
 
     context "with real data" do
       let(:input) { real_data }
 
-      describe "#straight_score" do
-        it "matches" do
-          expect(subject.score(:strat)).to eq(10274)
-        end
+      it "solves strategy scoring" do
+        expect(subject.score(:strat)).to eq(10274)
       end
     end
   end
