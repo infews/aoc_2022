@@ -47,7 +47,7 @@ CrZsJsPPZsGzwwsLwLmpwMDw
       let(:data) { real_data }
 
       it "solves #sum_badge_priority" do
-        expect(subject.sum_badge_priority).to eq(157)
+        expect(subject.sum_badge_priority).to eq(2683)
       end
     end
   end

@@ -1,8 +1,12 @@
+require "forwardable"
+
 module Aoc2022
   module Day03
     class Baggage
       def initialize(input)
         @sacks = input.map { |l| Rucksack.new(l.chars) }
+        @groups = []
+        @sacks.each_slice(3) { |x, y, z| @groups << Group.new([x, y, z]) }
       end
 
       def sum_sack_priority
@@ -10,7 +14,7 @@ module Aoc2022
       end
 
       def sum_badge_priority
-        0
+        @groups.sum { |g| priority_of(g.badge) }
       end
 
       def priority_of(item)
@@ -23,8 +27,22 @@ module Aoc2022
       end
     end
 
+    class Group
+      def initialize(sacks)
+        @sacks = sacks
+      end
+
+      def badge
+        sack_items = @sacks.first.items
+        @sacks.each do |s|
+          sack_items &= s.items
+        end
+        sack_items.first
+      end
+    end
+
     class Rucksack
-      attr_reader :shared
+      attr_reader :shared, :items
 
       def initialize(chars)
         @items = chars
