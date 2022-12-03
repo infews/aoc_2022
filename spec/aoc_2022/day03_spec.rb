@@ -20,20 +20,16 @@ CrZsJsPPZsGzwwsLwLmpwMDw
     context "with test data" do
       let(:data) { test_data }
 
-      describe "#sum_sack_priority" do
-        it "matches" do
-          expect(subject.sum_sack_priority).to eq(157)
-        end
+      it "solves #sum_sack_priority" do
+        expect(subject.sum_sack_priority).to eq(157)
       end
     end
 
     context "with real data" do
       let(:data) { real_data }
 
-      describe "#sum_sack_priority" do
-        it "matches" do
-          expect(subject.sum_sack_priority).to eq(7831)
-        end
+      it "solves #sum_sack_priority" do
+        expect(subject.sum_sack_priority).to eq(7831)
       end
     end
   end
@@ -42,20 +38,16 @@ CrZsJsPPZsGzwwsLwLmpwMDw
     context "with test data" do
       let(:data) { test_data }
 
-      describe "#sums" do
-        xit "matches" do
-          expect(subject.sum).to eq(70)
-        end
+      it "solves #sum_badge_priority" do
+        expect(subject.sum_badge_priority).to eq(70)
       end
     end
 
     context "with real data" do
       let(:data) { real_data }
 
-      describe "#sums" do
-        xit "matches" do
-          expect(subject.sum).to eq(157)
-        end
+      it "solves #sum_badge_priority" do
+        expect(subject.sum_badge_priority).to eq(157)
       end
     end
   end

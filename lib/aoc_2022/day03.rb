@@ -9,6 +9,10 @@ module Aoc2022
         @sacks.sum { |s| priority_of(s.shared) }
       end
 
+      def sum_badge_priority
+        0
+      end
+
       def priority_of(item)
         ord = item.ord
         if (97..122).cover?(ord)
