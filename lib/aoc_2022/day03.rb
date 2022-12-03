@@ -1,12 +1,13 @@
+require "forwardable"
 require "set"
 
 module Aoc2022
   module Day03
     class Baggage
       def initialize(input)
-        @sacks = input.map { |l| Rucksack.new(l.chars) }
-        @groups = []
-        @sacks.each_slice(3) { |x, y, z| @groups << Group.new([x, y, z]) }
+        @sacks = input.collect { |l| Rucksack.new(l.chars) }
+        @groups = @sacks.each_slice(3)
+          .collect { |a| Group.new(a) }
       end
 
       def sum_sack_priority
@@ -33,15 +34,15 @@ module Aoc2022
       end
 
       def badge
-        sack_items = @sacks.first.items
-        @sacks.each do |s|
-          sack_items &= s.items
-        end
-        sack_items.first
+        @sacks.reduce(:&).to_a.first
       end
     end
 
     class Rucksack
+      include Enumerable
+      extend Forwardable
+
+      def_delegators :items, :&, :each
       attr_reader :shared, :items
 
       def initialize(chars)
@@ -50,7 +51,7 @@ module Aoc2022
       end
 
       def find_shared(chars)
-        first, second = chars.each_slice((chars.size / 2.0).round).to_a
+        first, second = chars.each_slice(chars.size / 2).to_a
         f = Set.new(first)
         s = Set.new(second)
         (f & s).to_a.first
