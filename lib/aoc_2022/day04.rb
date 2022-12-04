@@ -16,15 +16,13 @@ module Aoc2022
 
     class ElfPair
       def initialize(line)
-        left_start, left_end, right_start, right_end = ranges_from(line)
-        @left = left_start..left_end
-        @right = right_start..right_end
+        l_start, l_end, r_start, r_end = boundaries_from(line)
+        @left = l_start..l_end
+        @right = r_start..r_end
       end
 
-      def ranges_from(line)
-        line.split(",")
-          .collect { |s| s.split("-") }
-          .flatten
+      def boundaries_from(line)
+        line.scan(/\d+/)
           .collect { |s| s.to_i }
       end
 
