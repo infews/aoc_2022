@@ -16,14 +16,16 @@ module Aoc2022
 
     class ElfPair
       def initialize(line)
-        pair = line.split(",")
-        @left = range_from(pair.first)
-        @right = range_from(pair.last)
+        left_start, left_end, right_start, right_end = ranges_from(line)
+        @left = left_start..left_end
+        @right = right_start..right_end
       end
 
-      def range_from(a)
-        nums = a.split("-")
-        Range.new(nums.first.to_i, nums.last.to_i)
+      def ranges_from(line)
+        line.split(",")
+          .collect { |s| s.split("-") }
+          .flatten
+          .collect { |s| s.to_i }
       end
 
       def covers?
