@@ -1,24 +1,22 @@
-require "forwardable"
-require "set"
-
 module Aoc2022
   module Day04
     class Cleanup
       def initialize(input)
-        @pairs = input.collect { |i| ElfPair.new(i.split(",")) }
+        @pairs = input.collect { |line| ElfPair.new(line) }
       end
 
       def fully_contained
-        @pairs.sum { |p| p.covers? ? 1 : 0 }
+        @pairs.count { |p| p.covers? }
       end
 
       def overlap_count
-        @pairs.sum { |p| p.overlapping? ? 1 : 0 }
+        @pairs.count { |p| p.overlapping? }
       end
     end
 
     class ElfPair
-      def initialize(pair)
+      def initialize(line)
+        pair = line.split(",")
         @left = range_from(pair.first)
         @right = range_from(pair.last)
       end
