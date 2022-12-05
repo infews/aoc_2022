@@ -10,19 +10,26 @@ module Aoc2022
 
         @stacks = fill_stacks(stack_list)
         @moves = fill_moves(move_list)
-
-        move
       end
 
       def tops
         @stacks.collect { |s| s[-1] }.join
       end
 
-      def move
+      def move_9000
         @moves.each do |m|
           m.count.times {
             @stacks[m.to].push(@stacks[m.from].pop)
           }
+        end
+      end
+
+      def move_9001
+        @moves.each do |m|
+          popped = @stacks[m.from].pop(m.count)
+          m.count.times do
+            @stacks[m.to].push(popped.shift)
+          end
         end
       end
 
