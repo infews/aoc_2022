@@ -6,48 +6,43 @@ module Aoc2022
       CRATE_NAMES = *("A".."Z")
 
       def initialize(input)
-        stack_list, move_list = input.split("\n\n")
+        stacks, moves = input.split("\n\n")
 
-        @stacks = fill_stacks(stack_list)
-        @moves = fill_moves(move_list)
+        @stacks = fill_stacks(stacks.split("\n")[0..-2])
+        @moves = fill_moves(moves)
       end
 
       def tops
         @stacks.collect { |s| s[-1] }.join
       end
 
-      def move_9000
+      def move(crane)
         @moves.each do |m|
-          m.count.times {
-            @stacks[m.to].push(@stacks[m.from].pop)
-          }
-        end
-      end
-
-      def move_9001
-        @moves.each do |m|
-          popped = @stacks[m.from].pop(m.count)
+          popped = pop(crane, m)
           m.count.times do
             @stacks[m.to].push(popped.shift)
           end
         end
       end
 
-      def fill_stacks(stack_list)
-        stacks = []
-        input_rows = stack_list.split("\n")[0..-2]
-        stack_count = (input_rows.first.size + 1) / 4
-
-        chars = input_rows.collect { |row| row.chars }
-          .transpose
-        stack_count.times do |i|
-          at = (i * 4) + 1
-          stack = chars[at].select { |c| CRATE_NAMES.include?(c) }
-            .reverse
-          stacks.push(stack)
+      def pop(crane, move)
+        if crane == 9000
+          move.count.times.collect { @stacks[move.from].pop }
+        else # crane is 9001
+          @stacks[move.from].pop(move.count)
         end
+      end
 
-        stacks
+      def fill_stacks(input)
+        chars = input.collect { |row| row.chars }
+          .transpose
+
+        stack_count = (input.first.size + 1) / 4
+        stack_count.times.collect do |i|
+          at = (i * 4) + 1
+          chars[at].select { |c| CRATE_NAMES.include?(c) }
+            .reverse
+        end
       end
 
       def fill_moves(move_list)
