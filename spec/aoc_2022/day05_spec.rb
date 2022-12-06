@@ -15,12 +15,12 @@ move 1 from 1 to 2
 )
     }
     it "solves Part I" do
-      subject.move(9000)
+      subject.restack_with_model(9000)
       expect(subject.tops).to eq("CMZ")
     end
 
     it "solves Part II " do
-      subject.move(9001)
+      subject.restack_with_model(9001)
       expect(subject.tops).to eq("MCD")
     end
   end
@@ -29,12 +29,12 @@ move 1 from 1 to 2
     let(:data) { File.read("spec/fixtures/day05.txt") }
 
     it "solves Part I" do
-      subject.move(9000)
+      subject.restack_with_model(9000)
       expect(subject.tops).to eq("TQRFCBSJJ")
     end
 
     it "solves Part II " do
-      subject.move(9001)
+      subject.restack_with_model(9001)
       expect(subject.tops).to eq("RMHFJNVFP")
     end
   end

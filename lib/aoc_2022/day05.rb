@@ -16,20 +16,21 @@ module Aoc2022
         @stacks.collect { |s| s[-1] }.join
       end
 
-      def move(crane)
-        @moves.each do |m|
-          popped = pop(crane, m)
-          m.count.times do
-            @stacks[m.to].push(popped.shift)
-          end
+      def restack_with_model(crane)
+        if crane == 9000
+          pop_and_push_all
+        else # 9001
+          pop_and_push_all { |popped| popped.reverse }
         end
       end
 
-      def pop(crane, move)
-        if crane == 9000
-          move.count.times.collect { @stacks[move.from].pop }
-        else # crane is 9001
-          @stacks[move.from].pop(move.count)
+      def pop_and_push_all
+        @moves.each do |m|
+          popped = @stacks[m.from].pop(m.count)
+          popped = yield popped if block_given?
+          m.count.times do
+            @stacks[m.to].push(popped.pop)
+          end
         end
       end
 
