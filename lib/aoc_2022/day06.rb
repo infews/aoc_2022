@@ -1,56 +1,46 @@
 module Aoc2022
-  module Day05
-    Move = Struct.new("Move", :count, :from, :to)
-
-    class Crates
-      CRATE_NAMES = *("A".."Z")
+  module Day06
+    class SignalDetector
+      attr_reader :start_of_packet, :start_of_message
 
       def initialize(input)
-        stacks, moves = input.split("\n\n")
+        @signal = input.chars
 
-        @stacks = fill_stacks(stacks.split("\n")[0..-2])
-        @moves = fill_moves(moves)
+        detect_marker
+        detect_message
       end
 
-      def tops
-        @stacks.collect { |s| s[-1] }.join
-      end
+      def detect_marker
+        found = false
+        check_start = 0
+        @start_of_packet = 3
 
-      def restack_with_model(crane)
-        if crane == 9000
-          pop_and_push_all
-        else # 9001
-          pop_and_push_all { |popped| popped.reverse }
-        end
-      end
+        until found
+          test = @signal[check_start..@start_of_packet]
 
-      def pop_and_push_all
-        @moves.each do |m|
-          popped = @stacks[m.from].pop(m.count)
-          popped = yield popped if block_given?
-          m.count.times do
-            @stacks[m.to].push(popped.pop)
+          if test.size != test.uniq.size
+            check_start += 1
+          else
+            found = true
           end
+          @start_of_packet += 1
         end
       end
 
-      def fill_stacks(input)
-        chars = input.collect { |row| row.chars }
-          .transpose
+      def detect_message
+        found = false
+        check_start = @start_of_packet
+        @start_of_message = check_start + 13
 
-        stack_count = (input.first.size + 1) / 4
-        stack_count.times.collect do |i|
-          at = (i * 4) + 1
-          chars[at].select { |c| CRATE_NAMES.include?(c) }
-            .reverse
-        end
-      end
+        until found
+          test = @signal[check_start..@start_of_message]
 
-      def fill_moves(move_list)
-        move_list.split("\n").collect do |line|
-          md = line.match(/move (\d+) from (\d+) to (\d+)/)
-          next if md.nil?
-          Move.new(md[1].to_i, md[2].to_i - 1, md[3].to_i - 1)
+          if test.size != test.uniq.size
+            check_start += 1
+          else
+            found = true
+          end
+          @start_of_message += 1
         end
       end
     end

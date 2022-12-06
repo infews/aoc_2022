@@ -1,41 +1,77 @@
-RSpec.describe Aoc2022::Day05::Crates do
-  let(:subject) { Aoc2022::Day05::Crates.new(data) }
+RSpec.describe Aoc2022::Day06::SignalDetector do
+  let(:subject) { Aoc2022::Day06::SignalDetector.new(data) }
 
   context "with test data" do
-    let(:data) {
-      %(    [D]....
-[N] [C]....
-[Z] [M] [P]
- 1   2   3
+    context "example 1" do
+      let(:data) { "mjqjpqmgbljsphdztnvjfqwrcgsmlb" }
 
-move 1 from 2 to 1
-move 3 from 1 to 3
-move 2 from 2 to 1
-move 1 from 1 to 2
-)
-    }
-    it "solves Part I" do
-      subject.restack_with_model(9000)
-      expect(subject.tops).to eq("CMZ")
+      it "solves Part I" do
+        expect(subject.start_of_packet).to eq(7)
+      end
+
+      it "solves Part II" do
+        expect(subject.start_of_message).to eq(19)
+      end
     end
 
-    it "solves Part II " do
-      subject.restack_with_model(9001)
-      expect(subject.tops).to eq("MCD")
+    context "example 2" do
+      let(:data) { "bvwbjplbgvbhsrlpgdmjqwftvncz" }
+
+      it "solves Part I" do
+        expect(subject.start_of_packet).to eq(5)
+      end
+
+      it "solves Part II" do
+        expect(subject.start_of_message).to eq(23)
+      end
+    end
+
+    context "example 3" do
+      let(:data) { "nppdvjthqldpwncqszvftbrmjlhg" }
+
+      it "solves Part I" do
+        expect(subject.start_of_packet).to eq(6)
+      end
+
+      it "solves Part II" do
+        expect(subject.start_of_message).to eq(23)
+      end
+    end
+
+    context "example 4" do
+      let(:data) { "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg" }
+
+      it "solves Part I" do
+        expect(subject.start_of_packet).to eq(10)
+      end
+
+      it "solves Part II" do
+        expect(subject.start_of_message).to eq(29)
+      end
+    end
+
+    context "example 5" do
+      let(:data) { "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw" }
+
+      it "solves Part I" do
+        expect(subject.start_of_packet).to eq(11)
+      end
+
+      it "solves Part II" do
+        expect(subject.start_of_message).to eq(26)
+      end
     end
   end
 
   context "with puzzle data" do
-    let(:data) { File.read("spec/fixtures/day05.txt") }
+    let(:data) { File.read("spec/fixtures/day06.txt") }
 
     it "solves Part I" do
-      subject.restack_with_model(9000)
-      expect(subject.tops).to eq("TQRFCBSJJ")
+      expect(subject.start_of_packet).to eq(1647)
     end
 
-    it "solves Part II " do
-      subject.restack_with_model(9001)
-      expect(subject.tops).to eq("RMHFJNVFP")
+    it "solves Part II" do
+      expect(subject.start_of_message).to eq(2447)
     end
   end
 end
