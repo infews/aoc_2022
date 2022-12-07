@@ -6,42 +6,26 @@ module Aoc2022
       def initialize(input)
         @signal = input.chars
 
-        detect_marker
-        detect_message
+        @start_of_packet = detect(0, 4)
+        @start_of_message = detect(@start_of_packet, 14)
       end
 
-      def detect_marker
+      def detect(start, size)
         found = false
-        check_start = 0
-        @start_of_packet = 3
+        check_start = start
+        check_end = check_start + size-1
 
         until found
-          test = @signal[check_start..@start_of_packet]
+          test = @signal[check_start..check_end]
 
           if test.size != test.uniq.size
             check_start += 1
           else
             found = true
           end
-          @start_of_packet += 1
+          check_end += 1
         end
-      end
-
-      def detect_message
-        found = false
-        check_start = @start_of_packet
-        @start_of_message = check_start + 13
-
-        until found
-          test = @signal[check_start..@start_of_message]
-
-          if test.size != test.uniq.size
-            check_start += 1
-          else
-            found = true
-          end
-          @start_of_message += 1
-        end
+        check_end
       end
     end
   end
