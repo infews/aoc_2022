@@ -1,39 +1,51 @@
-RSpec.describe Aoc2022::Day7::FileSystem do
+RSpec.describe Aoc2022::Day07::FileSystem do
   let(:subject) { Aoc2022::Day07::FileSystem.new(data) }
 
   context "with test data" do
     let(:data) {
-      %(    [D]....
-[N] [C]....
-[Z] [M] [P]
- 1   2   3
-
-move 1 from 2 to 1
-move 3 from 1 to 3
-move 2 from 2 to 1
-move 1 from 1 to 2
+      %($ cd /
+$ ls
+dir a
+14848514 b.txt
+8504156 c.dat
+dir d
+$ cd a
+$ ls
+dir e
+29116 f
+2557 g
+62596 h.lst
+$ cd e
+$ ls
+584 i
+$ cd ..
+$ cd ..
+$ cd d
+$ ls
+4060174 j
+8033020 d.log
+5626152 d.ext
+7214296 k
 )
     }
     it "solves Part I" do
-      subject.restack_with_model(9000)
-      expect(subject.tops).to eq("CMZ")
+      expect(subject.deleteable).to eq(95437)
     end
 
-    it "solves Part II " do
+    xit "solves Part II " do
       subject.restack_with_model(9001)
       expect(subject.tops).to eq("MCD")
     end
   end
 
   context "with puzzle data" do
-    let(:data) { File.read("spec/fixtures/day05.txt") }
+    let(:data) { File.read("spec/fixtures/day07.txt") }
 
     it "solves Part I" do
-      subject.restack_with_model(9000)
-      expect(subject.tops).to eq("TQRFCBSJJ")
+      expect(subject.deleteable).to eq(1453349)
     end
 
-    it "solves Part II " do
+    xit "solves Part II " do
       subject.restack_with_model(9001)
       expect(subject.tops).to eq("RMHFJNVFP")
     end

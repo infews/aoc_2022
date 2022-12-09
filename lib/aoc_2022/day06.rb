@@ -13,7 +13,7 @@ module Aoc2022
       def detect(start, size)
         found = false
         check_start = start
-        check_end = check_start + size-1
+        check_end = check_start + size - 1
 
         until found
           test = @signal[check_start..check_end]
