@@ -32,9 +32,8 @@ $ ls
       expect(subject.deleteable).to eq(95437)
     end
 
-    xit "solves Part II " do
-      subject.restack_with_model(9001)
-      expect(subject.tops).to eq("MCD")
+    it "solves Part II " do
+      expect(subject.to_delete).to eq(24933642)
     end
   end
 
@@ -45,9 +44,8 @@ $ ls
       expect(subject.deleteable).to eq(1453349)
     end
 
-    xit "solves Part II " do
-      subject.restack_with_model(9001)
-      expect(subject.tops).to eq("RMHFJNVFP")
+    it "solves Part II " do
+      expect(subject.to_delete).to eq(2948823)
     end
   end
 end

@@ -15,6 +15,14 @@ module Aoc2022
           .sum
       end
 
+      def to_delete
+        target = 30000000 - (70000000 - @dir_sizes["/"])
+
+        @dir_sizes.select { |k, v| v >= target }
+          .values
+          .min
+      end
+
       def parse_commands(parent)
         dir_names = ["/"]
         @dir_sizes["/"] = 0
