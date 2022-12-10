@@ -15,46 +15,20 @@ module Aoc2022
       end
 
       def look
-        i_width = @width - 2
-        i_depth = @depth - 2
-
-        (1..i_depth).each do |row_index|
-          (1..i_width).each do |col_index|
+        (1..(@depth - 2)).each do |row_index|
+          (1..(@width - 2)).each do |col_index|
             current_tree = @map[row_index][col_index]
-            visible = [true, true, true, true]
 
-            # top
+            top = (0..(row_index - 1)).collect { |i| @map[i][col_index] }
+            left = @map[row_index][0, col_index]
+            bottom = (@width - 1).downto(row_index + 1).collect { |i| @map[i][col_index] }
+            right = @map[row_index][col_index + 1, @depth - col_index]
 
-            (0..(row_index - 1)).each do |i|
-              if current_tree <= @map[i][col_index]
-                visible[0] = false
-              end
+            visible = [top, left, bottom, right].collect do |trees|
+              trees.all? { |t| t < current_tree }
             end
 
-            # left
-            (0..(col_index - 1)).each do |i|
-              if current_tree <= @map[row_index][i]
-                visible[1] = false
-              end
-            end
-
-            # bottom
-            (@width - 1).downto(row_index + 1).each do |i|
-              if current_tree <= @map[i][col_index]
-                visible[2] = false
-              end
-            end
-
-            # right
-            (@depth - 1).downto(col_index + 1).each do |i|
-              if current_tree <= @map[row_index][i]
-                visible[3] = false
-              end
-            end
-
-            if visible.any? true
-              @visible += 1
-            end
+            @visible += 1 if visible.any?(true)
           end
         end
       end
