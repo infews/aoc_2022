@@ -14,8 +14,8 @@ RSpec.describe Aoc2022::Day08::Forest do
       expect(subject.visible).to eq(21)
     end
 
-    xit "solves Part II " do
-      expect(subject.to_delete).to eq(24933642)
+    it "solves Part II " do
+      expect(subject.scenic_score).to eq(8)
     end
   end
 
@@ -26,8 +26,8 @@ RSpec.describe Aoc2022::Day08::Forest do
       expect(subject.visible).to eq(1681)
     end
 
-    xit "solves Part II " do
-      expect(subject.to_delete).to eq(2948823)
+    it "solves Part II " do
+      expect(subject.scenic_score).to eq(201684)
     end
   end
 end
