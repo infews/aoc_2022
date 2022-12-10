@@ -21,53 +21,39 @@ module Aoc2022
         (1..i_depth).each do |row_index|
           (1..i_width).each do |col_index|
             current_tree = @map[row_index][col_index]
+            visible = [true, true, true, true]
+
             # top
-            visible = true
+
             (0..(row_index - 1)).each do |i|
               if current_tree <= @map[i][col_index]
-                visible = false
-                break
+                visible[0] = false
               end
             end
-            if visible
-              @visible += 1
-              next
-            end
+
             # left
-            visible = true
             (0..(col_index - 1)).each do |i|
               if current_tree <= @map[row_index][i]
-                visible = false
-                break
+                visible[1] = false
               end
             end
-            if visible
-              @visible += 1
-              next
-            end
+
             # bottom
-            visible = true
             (@width - 1).downto(row_index + 1).each do |i|
               if current_tree <= @map[i][col_index]
-                visible = false
-                break
+                visible[2] = false
               end
             end
-            if visible
-              @visible += 1
-              next
-            end
+
             # right
-            visible = true
             (@depth - 1).downto(col_index + 1).each do |i|
               if current_tree <= @map[row_index][i]
-                visible = false
-                break
+                visible[3] = false
               end
             end
-            if visible
+
+            if visible.any? true
               @visible += 1
-              next
             end
           end
         end
