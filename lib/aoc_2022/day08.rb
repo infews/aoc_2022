@@ -13,34 +13,22 @@ module Aoc2022
       def visible
         visible = @width * 2 + @depth * 2 - 4
 
-        two_d_loop do |row, col|
-          current_tree = @map[row][col]
-
-          top = (0..(row - 1)).collect { |i| @map[i][col] }
-          left = @map[row][0, col]
-          bottom = (@width - 1).downto(row + 1).collect { |i| @map[i][col] }
-          right = @map[row][col + 1, @depth - col]
-
-          seen = [top, left, bottom, right].collect do |trees|
+        tree_loop do |current_tree, top, left, bottom, right|
+          seen = [top, left, bottom.reverse, right].collect do |trees|
             trees.all? { |t| t < current_tree }
           end
 
           visible += 1 if seen.any?(true)
         end
+
         visible
       end
 
       def scenic_score
         scores = []
-        two_d_loop do |row, col|
-          current_tree = @map[row][col]
 
-          top = (row - 1).downto(0).collect { |i| @map[i][col] }
-          left = (col - 1).downto(0).collect { |i| @map[row][i] }
-          bottom = ((row + 1)..(@width - 1)).collect { |i| @map[i][col] }
-          right = @map[row][col + 1, @depth - col]
-
-          scores << [top, left, bottom, right].collect do |trees|
+        tree_loop do |current_tree, top, left, bottom, right|
+          scores << [top.reverse, left.reverse, bottom, right].collect do |trees|
             count_remaining_trees = true
             trees.collect do |tree|
               if (tree < current_tree) && count_remaining_trees
@@ -55,13 +43,21 @@ module Aoc2022
             end.sum
           end.inject(:*)
         end
+
         scores.max
       end
 
-      def two_d_loop
+      def tree_loop
         (1..(@depth - 2)).each do |row|
           (1..(@width - 2)).each do |col|
-            yield row, col
+            current_tree = @map[row][col]
+
+            top = (0..(row - 1)).collect { |i| @map[i][col] }
+            left = @map[row][0, col]
+            bottom = ((row + 1)..(@width - 1)).collect { |i| @map[i][col] }
+            right = @map[row][col + 1, @depth - col]
+
+            yield current_tree, top, left, bottom, right
           end
         end
       end
