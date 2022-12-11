@@ -108,8 +108,7 @@ module Aoc2022
 
       def tail_positions
         @commands.each do |cmd|
-          i = cmd.count
-          i.times do
+          cmd.count.times do
             head = @head_positions.last
             @head_positions << head.move(cmd.dir)
             @tail_positions << @tail_positions.last.move_tail(head, cmd.dir)

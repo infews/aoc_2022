@@ -14,12 +14,6 @@ R 2
 )
     }
 
-    it "equal" do
-      a = Aoc2022::Day09::Position.new(0, 0)
-      b = Aoc2022::Day09::Position.new(0, 0)
-      expect([a, b].uniq.size).to eq(1)
-    end
-
     it "solves Part I" do
       expect(subject.tail_positions).to eq(13)
     end
