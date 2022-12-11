@@ -4,12 +4,13 @@ module Aoc2022
 
     class Position
       MOVE_DIRS = {
-        "R" => {x: 1, y: 0},
-        "L" => {x: -1, y: 0},
-        "U" => {x: 0, y: 1},
-        "D" => {x: 0, y: -1}
+        "R" => { x: 1, y: 0 },
+        "L" => { x: -1, y: 0 },
+        "U" => { x: 0, y: 1 },
+        "D" => { x: 0, y: -1 }
       }
       attr_reader :x, :y
+
       def initialize(x, y)
         @x = x
         @y = y
@@ -71,7 +72,7 @@ module Aoc2022
       end
 
       def to_h
-        {x: x, y: y}
+        { x: x, y: y }
       end
 
       def eql?(other)
@@ -90,12 +91,13 @@ module Aoc2022
     end
 
     class Rope
-      def initialize(input)
+      def initialize(input, knots)
         @commands = input.split("\n")
-          .collect { |line| line.split(" ") }
-          .collect { |cmd| Command.new(cmd[0], cmd[1].to_i) }
-        @head_positions = [Position.new(0, 0)]
-        @tail_positions = [Position.new(0, 0)]
+                         .collect { |line| line.split(" ") }
+                         .collect { |cmd| Command.new(cmd[0], cmd[1].to_i) }
+        @rope = knots.times.collect { |i| [Position.new(0, 0)] }
+        @head_positions = @rope.first
+        @tail_positions = @rope.last
       end
 
       def tail_positions

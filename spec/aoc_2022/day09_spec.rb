@@ -1,9 +1,11 @@
 RSpec.describe Aoc2022::Day09::Rope do
-  let(:subject) { Aoc2022::Day09::Rope.new(data) }
+  let(:subject) { Aoc2022::Day09::Rope.new(data, knots) }
 
-  context "with test data" do
-    let(:data) {
-      %(R 4
+  context "Part I" do
+    let(:knots) { 2 }
+    context "with test data" do
+      let(:data) {
+        %(R 4
 U 4
 L 3
 D 1
@@ -12,26 +14,46 @@ D 1
 L 5
 R 2
 )
-    }
+      }
 
-    it "solves Part I" do
-      expect(subject.tail_positions).to eq(13)
+      it "solves" do
+        knots = 1
+        expect(subject.tail_positions).to eq(13)
+      end
     end
 
-    xit "solves Part II " do
-      expect(subject.scenic_score).to eq(8)
+    context "with puzzle data" do
+      let(:data) { File.read("spec/fixtures/day09.txt") }
+      it "solves" do
+        expect(subject.tail_positions).to eq(6236)
+      end
     end
   end
+  context "Part II" do
+    let(:knots) { 10 }
+    context "with test data" do
+      let(:data) {
+        %(R 5
+U 8
+L 8
+D 3
+R 17
+D 10
+L 25
+U 20
+)
+      }
 
-  context "with puzzle data" do
-    let(:data) { File.read("spec/fixtures/day09.txt") }
-
-    it "solves Part I" do
-      expect(subject.tail_positions).to eq(6236)
+      it "solves" do
+        expect(subject.tail_positions).to eq(36)
+      end
     end
 
-    xit "solves Part II " do
-      expect(subject.scenic_score).to eq(201684)
+    context "with puzzle data" do
+      let(:data) { File.read("spec/fixtures/day09.txt") }
+      xit "solves" do
+        expect(subject.tail_positions).to eq(6236)
+      end
     end
   end
 end
