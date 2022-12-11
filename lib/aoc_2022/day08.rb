@@ -29,18 +29,12 @@ module Aoc2022
 
         tree_loop do |current_tree, top, left, bottom, right|
           scores << [top.reverse, left.reverse, bottom, right].collect do |trees|
-            count_remaining_trees = true
-            trees.collect do |tree|
-              if (tree < current_tree) && count_remaining_trees
-                1
-              elsif (tree >= current_tree) && count_remaining_trees
-                count_remaining_trees = false
-                1
-              else
-                count_remaining_trees = false
-                0
-              end
-            end.sum
+            sum = 0
+            trees.each do |tree|
+              sum += 1
+              break if tree >= current_tree
+            end
+            sum
           end.inject(:*)
         end
 
