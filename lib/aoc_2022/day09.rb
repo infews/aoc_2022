@@ -3,28 +3,20 @@ module Aoc2022
     Command = Struct.new(:dir, :count)
 
     class Position
+      MOVE_DIRS = {
+        "R" => {x: 1, y: 0},
+        "L" => {x: -1, y: 0},
+        "U" => {x: 0, y: 1},
+        "D" => {x: 0, y: -1}
+      }
       attr_reader :x, :y
-
       def initialize(x, y)
         @x = x
         @y = y
       end
 
       def move(dir)
-        new_x = x
-        new_y = y
-        case dir
-        when "R"
-          new_x += 1
-        when "L"
-          new_x -= 1
-        when "U"
-          new_y += 1
-        when "D"
-          new_y -= 1
-        end
-
-        Position.new(new_x, new_y)
+        Position.new(x + MOVE_DIRS[dir][:x], y + MOVE_DIRS[dir][:y])
       end
 
       def move_tail(head, dir)
@@ -88,8 +80,8 @@ module Aoc2022
 
       def ==(other)
         (self.class == other.class) &&
-          (@x == other.x) &&
-          (@y == other.y)
+          (x == other.x) &&
+          (y == other.y)
       end
 
       def at_start(head)
