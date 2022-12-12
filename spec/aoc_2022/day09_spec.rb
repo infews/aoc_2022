@@ -31,7 +31,25 @@ R 2
 
   context "Part II" do
     let(:knots) { 10 }
-    context "with test data" do
+    context "with initial test data" do
+      let(:data) {
+        %(R 4
+U 4
+L 3
+D 1
+R 4
+D 1
+L 5
+R 2
+)
+      }
+
+      it "solves" do
+        expect(subject.tail_positions).to eq(1)
+      end
+    end
+
+    context "with second test data" do
       let(:data) {
         %(R 5
 U 8
@@ -53,7 +71,7 @@ U 20
       let(:data) { File.read("spec/fixtures/day09.txt") }
 
       it "solves" do
-        expect(subject.tail_positions).to eq(6236)
+        expect(subject.tail_positions).to eq(2449)
       end
     end
   end
