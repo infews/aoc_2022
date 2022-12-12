@@ -17,7 +17,6 @@ R 2
       }
 
       it "solves" do
-        knots = 1
         expect(subject.tail_positions).to eq(13)
       end
     end
@@ -29,6 +28,7 @@ R 2
       end
     end
   end
+
   context "Part II" do
     let(:knots) { 10 }
     context "with test data" do
@@ -51,7 +51,8 @@ U 20
 
     context "with puzzle data" do
       let(:data) { File.read("spec/fixtures/day09.txt") }
-      xit "solves" do
+
+      it "solves" do
         expect(subject.tail_positions).to eq(6236)
       end
     end
