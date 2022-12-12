@@ -31,28 +31,28 @@ module Aoc2022
         new_x = x
         new_y = y
 
-        if (knot.x == x + 2) && (knot.y == y + 2)
+        if (knot.x == x + 2) && (knot.y == y + 2) # bottom/left corner moves to b/l of knot
           new_x = knot.x - 1
           new_y = knot.y - 1
-        elsif (knot.x == x - 2) && (knot.y == y + 2)
+        elsif (knot.x == x - 2) && (knot.y == y + 2) # top/left corner moves to t/l of knot
           new_x = knot.x + 1
           new_y = knot.y - 1
-        elsif (knot.x == x + 2) && (knot.y == y - 2)
+        elsif (knot.x == x + 2) && (knot.y == y - 2) # bottom/right corner moves to b/r of knot
           new_x = knot.x - 1
           new_y = knot.y + 1
-        elsif (knot.x == x - 2) && (knot.y == y - 2)
+        elsif (knot.x == x - 2) && (knot.y == y - 2) # top/right corner moves to b/l of knot
           new_x = knot.x + 1
           new_y = knot.y + 1
-        elsif knot.y == y - 2
+        elsif knot.y == y - 2 # bottom middle moves to below knot
           new_x = knot.x
           new_y = knot.y + 1
-        elsif knot.y == y + 2
+        elsif knot.y == y + 2 # top middle moves to above knot
           new_x = knot.x
           new_y = knot.y - 1
-        elsif knot.x == x - 2
+        elsif knot.x == x - 2 # left middle moves to left of knot
           new_x = knot.x + 1
           new_y = knot.y
-        elsif knot.x == x + 2
+        elsif knot.x == x + 2 # right middle moves to right of knot
           new_x = knot.x - 1
           new_y = knot.y
         end
