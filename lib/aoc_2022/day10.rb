@@ -11,8 +11,8 @@ module Aoc2022
     class CommDevice
       def initialize(input)
         @commands = input.split("\n")
-          .collect { |line| line.split(" ") }
-          .collect { |cmd| Command.from(cmd[0], cmd[1].to_i) }
+                         .collect { |line| line.split(" ") }
+                         .collect { |cmd| Command.from(cmd[0], cmd[1].to_i) }
         @x = 1
         @cycle = 1
         @strengths = []
@@ -44,13 +44,9 @@ module Aoc2022
       def process_commands_and_update(update, &block)
         @commands.each do |cmd|
           cmd.tick.times do
-            if update == :last
-              yield
-              update_register(cmd)
-            else
-              update_register(cmd)
-              yield
-            end
+            update_register(cmd) if update == :first
+            yield
+            update_register(cmd) if update == :last
           end
         end
       end

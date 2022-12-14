@@ -33,22 +33,22 @@ Monkey 3:
 )
     }
     it "solves Part I" do
-      expect(subject.visible).to eq(21)
+      expect(subject.monkey_business).to eq(10605)
     end
 
-    it "solves Part II " do
+    xit "solves Part II " do
       expect(subject.scenic_score).to eq(8)
     end
   end
 
   context "with puzzle data" do
-    let(:data) { File.read("spec/fixtures/day08.txt") }
+    let(:data) { File.read("spec/fixtures/day11.txt") }
 
     it "solves Part I" do
-      expect(subject.visible).to eq(1681)
+      expect(subject.monkey_business).to eq(10605)
     end
 
-    it "solves Part II " do
+    xit "solves Part II " do
       expect(subject.scenic_score).to eq(201684)
     end
   end
