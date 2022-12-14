@@ -18,7 +18,7 @@ RSpec.describe Aoc2022::Day10 do
       end
 
       it "renders Part II" do
-        expect(subject.render).to eq(true)
+        expect(subject.render(false)).to eq(nil)
       end
     end
   end
