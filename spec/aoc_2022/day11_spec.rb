@@ -49,7 +49,7 @@ Monkey 3:
     end
 
     it "solves Part II " do
-      expect(subject.mb_10k).to eq(2713310158)
+      expect(subject.mb_10k).to eq(14106266886)
     end
   end
 end
