@@ -36,8 +36,8 @@ Monkey 3:
       expect(subject.monkey_business).to eq(10605)
     end
 
-    xit "solves Part II " do
-      expect(subject.scenic_score).to eq(8)
+    it "solves Part II " do
+      expect(subject.mb_10k).to eq(2713310158)
     end
   end
 
@@ -45,11 +45,11 @@ Monkey 3:
     let(:data) { File.read("spec/fixtures/day11.txt") }
 
     it "solves Part I" do
-      expect(subject.monkey_business).to eq(10605)
+      expect(subject.monkey_business).to eq(57348)
     end
 
-    xit "solves Part II " do
-      expect(subject.scenic_score).to eq(201684)
+    it "solves Part II " do
+      expect(subject.mb_10k).to eq(2713310158)
     end
   end
 end

@@ -1,101 +1,90 @@
 module Aoc2022
   module Day11
-
     class Monkey
       attr_reader :business
       attr_accessor :items
+      attr_reader :test_value
 
       def initialize(items, operation, ops_value, test_value, monkey_true, monkey_false)
         @items = items
-        @operation = operation
         @ops_value = ops_value
         @test_value = test_value
         @monkey_true = monkey_true
         @monkey_false = monkey_false
         @business = 0
+
+        @worry_calc = if operation == "+"
+                        proc { |worry, value| worry + value }
+                      else
+                        proc { |worry, value| worry * value }
+                      end
       end
 
-      def do_business
+      def do_business(worry_relief, lcm)
         results = []
         @items.each do |item|
-          new_worry = calc_worry(item) / 3
-          if new_worry % @test_value == 0
-            results << { @monkey_true => new_worry }
-          else
-            results << { @monkey_false => new_worry }
-          end
+          worry = @worry_calc.call(item, ops_value(item)) / worry_relief
+          worry = worry % lcm
+          results << if (worry % @test_value) == 0
+                       [@monkey_true, worry]
+                     else
+                       [@monkey_false, worry]
+                     end
         end
         @business += @items.size
         @items = []
         results
       end
 
-      def calc_worry(old_worry)
-
-        value = (@ops_value == "old") ? old_worry : @ops_value
-
-        case @operation
-        when "+"
-          old_worry + value
-        when "-"
-          old_worry - value
-        when "*"
-          old_worry * value
-        when "/"
-          old_worry / value
-        end
+      def ops_value(worry_value)
+        (@ops_value == "old") ? worry_value : @ops_value
       end
 
-      RE_ITEMS = /items: (?<items>.*)\n/
-      RE_TEST = /Test: divisible by (?<test>\d+)\n/
-      RE_TRUE = /ue: .*monkey (?<m_true>\d+)\n/
-      RE_FALSE = /lse:.*monkey (?<m_false>\d+)/
-      RE_3 = /old (?<op>[\/|\+|\*|-])\s(?<val>.*)$/
-
       def self.from(text_block)
-
-        md = text_block.match RE_ITEMS
+        md = text_block.match(/items: (?<items>.*)\n/)
         items = md[:items].split(",")
                           .collect { |num| num.to_i }
 
-        md = text_block.match RE_TEST
+        md = text_block.match(/Test: divisible by (?<test>\d+)\n/)
         test_value = md[:test].to_i
-        if test_value == 0
-          puts "found at #{md}"
-        end
 
-        md = text_block.match RE_TRUE
+        md = text_block.match(/ue: .*monkey (?<m_true>\d+)\n/)
         monkey_true = md[:m_true].to_i
 
-        md = text_block.match RE_FALSE
+        md = text_block.match(/lse:.*monkey (?<m_false>\d+)/)
         monkey_false = md[:m_false].to_i
 
-        md = text_block.match RE_3
+        md = text_block.match(/old (?<op>[\/|+*-])\s(?<val>.*)$/)
         operation = md[:op]
         ops_value = (md[:val] == "old") ? "old" : md[:val].to_i
 
         Monkey.new(items, operation, ops_value, test_value, monkey_true, monkey_false)
       end
-
     end
 
     class KeepAway
       def initialize(input)
         @monkeys = input.split("\n\n")
                         .collect { |text| Monkey.from(text) }
+
+        @lcm = @monkeys.collect { |monkey| monkey.test_value }
+                       .reduce(1, :lcm)
       end
 
-      def monkey_business
-        20.times do
+      def monkey_business(rounds = 20, worry_relief = 3)
+        rounds.times do
           @monkeys.each do |monkey|
-            results = monkey.do_business
-            results.each do |result|
-              which_monkey = result.keys.first
-              @monkeys[which_monkey].items << result[which_monkey]
+            monkey.do_business(worry_relief, @lcm).each do |caught|
+              which, item = caught
+              @monkeys[which].items << item
             end
           end
         end
         @monkeys.collect { |m| m.business }.max(2).inject(:*)
+      end
+
+      def mb_10k
+        monkey_business(10000, 1)
       end
     end
   end

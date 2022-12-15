@@ -11,8 +11,8 @@ module Aoc2022
     class CommDevice
       def initialize(input)
         @commands = input.split("\n")
-                         .collect { |line| line.split(" ") }
-                         .collect { |cmd| Command.from(cmd[0], cmd[1].to_i) }
+          .collect { |line| line.split(" ") }
+          .collect { |cmd| Command.from(cmd[0], cmd[1].to_i) }
         @x = 1
         @cycle = 1
         @strengths = []
